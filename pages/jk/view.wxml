@@ -1,0 +1,39 @@
+<view class="page" bind:longpress="myEvent">
+    <view class="page__bd">
+        <view class="weui-article">
+            <view class="page__desc" wx:if="{{topic.topic_type == 'S' }}"> 单选题 </view>
+            <view class="page__desc" wx:elif="{{topic.topic_type == 'M' }}"> 多选题 </view>
+            <view class="weui-article__h1">
+                {{topic.topic}}
+            </view>
+
+            <view class="weui-article__section">
+                <view class="weui-article__p" wx:if="{{topic.image}}">
+                    <image class="weui-article__img" src="http://hebei.iabe.cn/subjectsPics/s1/{{topic.image}}" mode="aspectFit" style="width:99%; height: 200px" />
+                </view>
+
+                <view class="{{selectboxDom}}">
+                    <radio-group bindchange="checkAnswer">
+                        <label class="weui-cell weui-check__label" wx:for="{{topic.answers}}" wx:key="key">
+                            <radio class="weui-check" value="{{item.k}}" checked="{{item.checked}}" />
+
+                            <view class="weui-cell__bd">{{item.k}}. {{item.v}}</view>
+                            <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                                <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                            </view>
+                        </label>
+                    </radio-group>
+                </view>
+
+            </view>
+
+            <view class="weui-article__section" wx:if="{{showAnalysis}}">
+                <view class="page__title" style='color:red'>正确答案：{{topic.correct}}</view>
+                <view class="weui-article">
+                    <view class="weui-article__p">分析：{{topic.analysis}}
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
